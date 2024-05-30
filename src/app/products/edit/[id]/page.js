@@ -1,6 +1,5 @@
 // pages/products/edit/[id].js
-"use client"
-import { useRouter } from "next/router";
+"use client";
 import { useDispatch, useSelector } from "react-redux";
 // import ProductForm from "../../../components/ProductForm";
 // import productService from "../../../services/productService";
@@ -9,9 +8,11 @@ import { Box, Heading } from "@chakra-ui/react";
 import ProductForm from "@/app/components/ProductForm";
 import { fetchProducts, resetProducts } from "@/app/store/productsSlice";
 import productService from "@/app/services/productService";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const EditProduct = () => {
+  const router = useRouter();
   const { id } = useParams();
   console.log("id", id);
   const dispatch = useDispatch();
@@ -21,10 +22,13 @@ const EditProduct = () => {
   const handleSubmit = async (formData) => {
     try {
       await productService.updateProduct(id, formData);
+      toast.success("Product Edit Successfully");
       dispatch(resetProducts());
       dispatch(fetchProducts());
+
       router.push("/");
     } catch (error) {
+      toast.error("Error updating product");
       console.error("Error updating product:", error);
     }
   };

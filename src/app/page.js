@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { fetchProducts } from "../store/productsSlice";
 // import ProductList from "../components/ProductList";
-import { Box, Heading, Input, Spinner } from "@chakra-ui/react";
+import { Box, Button, Center, Heading, Input, Spinner } from "@chakra-ui/react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchProducts, resetProducts } from "./store/productsSlice";
 import ProductList from "./components/ProductList";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 export default function Home() {
    const dispatch = useDispatch();
@@ -36,14 +38,25 @@ export default function Home() {
    );
   return (
     <main>
-      <Box p={5}>
-        <Heading mb={5}>Product List</Heading>
-        <Input
-          placeholder="Search products"
-          value={searchTerm}
-          onChange={handleSearch}
-          mb={5}
-        />
+      <Box padding={20}>
+        <Center>
+          <Heading mb={5}>Product List</Heading>
+        </Center>
+        <Center>
+          <Link href="/products/new">
+            <Button mb={5}>Create Product</Button>
+          </Link>
+        </Center>
+        <Center>
+          {" "}
+          <Input
+            placeholder="Search products"
+            value={searchTerm}
+            onChange={handleSearch}
+            mb={5}
+          />
+        </Center>
+
         <InfiniteScroll
           dataLength={filteredProducts.length}
           next={fetchMoreData}

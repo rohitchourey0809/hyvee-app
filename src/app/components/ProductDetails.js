@@ -4,21 +4,24 @@ import productService from "../services/productService";
 import { fetchProducts, resetProducts } from "../store/productsSlice";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const ProductDetails = ({ product }) => {
-    const router = useRouter();
-    const dispatch = useDispatch();
+  const router = useRouter();
+  const dispatch = useDispatch();
 
-    const handleDelete = async () => {
-      try {
-        await productService.deleteProduct(product.id);
-        dispatch(resetProducts());
-        dispatch(fetchProducts());
-        router.push("/");
-      } catch (error) {
-        console.error("Error deleting product:", error);
-      }
-    };
+  const handleDelete = async () => {
+    try {
+      await productService.deleteProduct(product.id);
+      toast.success("Product Delete Successfully");
+      dispatch(resetProducts());
+      dispatch(fetchProducts());
+
+      router.push("/");
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
 
   return (
     <Box>
@@ -32,7 +35,7 @@ const ProductDetails = ({ product }) => {
       >
         <Text fontWeight="bold">{product.name}</Text>
         <Text mt={2}>{product.description}</Text>
-        <Text mt={2}>${product.price}</Text>
+        <Text mt={2}>${product.productPrice}</Text>
       </Box>
       <Button
         mt={4}
