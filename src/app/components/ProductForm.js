@@ -8,12 +8,8 @@ const MotionBox = motion(Box);
 
 const ProductForm = ({ onSubmit, initialValues }) => {
   const [name, setName] = useState(initialValues.name || "");
-  const [description, setDescription] = useState(
-    initialValues.description || ""
-  );
-  const [productPrice, setProductPrice] = useState(
-    initialValues.productPrice || ""
-  );
+  const [description, setDescription] = useState(initialValues.description || "");
+  const [productPrice, setProductPrice] = useState(initialValues.productPrice || "");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,9 +52,7 @@ const ProductForm = ({ onSubmit, initialValues }) => {
           mb={3}
         />
         <Center>
-          <Button type="submit" colorScheme="teal">
-            Submit
-          </Button>
+          <Button type="submit" colorScheme="teal">Submit</Button>
         </Center>
       </MotionBox>
     </Center>
